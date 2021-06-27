@@ -36,7 +36,6 @@ public class TestLogger {
                 LOG.info(s);
                 assert(s.contains("/ by zero"));  
         }
-	
 
         @Test
         public void testGetErrorMessage3() {
