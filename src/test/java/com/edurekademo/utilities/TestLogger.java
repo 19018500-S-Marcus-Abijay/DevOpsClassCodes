@@ -20,6 +20,7 @@ public class TestLogger {
                 }
                 LOG.info(s);
                  assert(s.contains(System.getProperty("line.separator"))); 
+		
         }
         @Test
         public void testGetErrorMessage2() {
