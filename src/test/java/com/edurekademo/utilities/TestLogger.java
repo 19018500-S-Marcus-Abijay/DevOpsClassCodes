@@ -51,6 +51,7 @@ public class TestLogger {
                 LOG.info(s);
                 assert(s.contains("/ by zero"));  
         }
+	
         @Test
         public void testGetErrorMessage4() {
                 String s = "Not Implemented";
