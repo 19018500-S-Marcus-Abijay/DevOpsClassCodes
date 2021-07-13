@@ -66,7 +66,6 @@ public class TestLogger {
                 LOG.info(s);
                 assert(s.contains("TESTIOEXCEPTION"));  
         }
-        
         @Test
         public void testGetErrorMessage5() {
                 String s = "Not Implemented";
