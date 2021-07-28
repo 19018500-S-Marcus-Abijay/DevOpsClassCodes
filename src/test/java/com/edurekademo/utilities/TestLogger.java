@@ -22,6 +22,7 @@ public class TestLogger {
                  assert(s.contains(System.getProperty("line.separator"))); 
 		
         }
+	
         @Test
         public void testGetErrorMessage2() {
                 String s = "Not Implemented";
