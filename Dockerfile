@@ -6,7 +6,7 @@ RUN mkdir /usr/local/tomcat
 RUN wget https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.69/bin/apache-tomcat-8.5.69.tar.gz -O /tmp/tomcat.tar.gz
 RUN cd /tmp && tar xvfz tomcat.tar.gz
 RUN cp -Rv /tmp/apache-tomcat-8.5.69/* /usr/local/tomcat/
-ADD addressbook.war /usr/local/tomcat/webapps/addressbook.war
+ADD target/addressbook.war /usr/local/tomcat/webapps/addressbook.war
 EXPOSE 8085
 CMD /usr/local/tomcat/bin/catalina.sh run
 
