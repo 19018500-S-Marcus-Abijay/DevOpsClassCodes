@@ -1,0 +1,11 @@
+---
+- name: Deploy to remote server
+  hosts: servers
+  remote_user: ubuntu
+
+  tasks:
+
+    - name: Deploying Docker file
+      copy:
+        src: Dockerfile
+        dest: /home/ubuntu/
