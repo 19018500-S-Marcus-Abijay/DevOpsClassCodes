@@ -1,11 +1,77 @@
 ---
-- name: Deploy to remote server
-  hosts: servers
-  remote_user: ubuntu
+- name: Tomcat deployment playbook
+  hosts: servers           # Inventory hosts group / server to act on
+  become: yes               # If to escalate privilege
+  become_method: sudo       # Set become method
 
   tasks:
+    - name: Install Nginx   #Installing Nginx
+      apt:
+        name: nginx
+        state: present
+    
+    - name: Install MySQL   #Installing MySQL
+      apt: 
+        name: mysql-server
+        update_cache: yes 
+        cache_valid_time: 3600 
+        state: present
 
-    - name: Deploying Docker file
+    - name: Start the MySQL service   #Starting MySQL
+      service: 
+        name: mysql 
+        state: started
+        enabled: true
+
+    - name: Install Default Java      #Installing Java
+      apt:
+        name: default-jdk
+        state: present
+
+## Installing Tomcat
+
+    - name: Add tomcat group #Creating tomcat group
+      group:
+        name: tomcat
+
+    - name: Add "tomcat" user  #Creating tomcat user
+      user:
+        name: tomcat
+        group: tomcat
+        home: /usr/share/tomcat
+        createhome: no
+        system: yes
+
+    - name: Download Tomcat
+      get_url:
+        url: https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz
+        dest: /tmp/apache-tomcat-9.0.30.tar.gz
+
+    - name: Create a tomcat directory
+      file:
+        path: /usr/share/tomcat
+        state: directory
+        owner: tomcat
+        group: tomcat
+
+    - name: Extract tomcat archive
+      unarchive:
+        src: /tmp/apache-tomcat-9.0.30.tar.gz
+        dest: /usr/share/tomcat
+        owner: tomcat
+        group: tomcat
+        remote_src: yes
+        extra_opts: "--strip-components=1"
+        creates: /usr/share/tomcat/bin
+
+    - name: Copy tomcat service file
       copy:
-        src: Dockerfile
-        dest: /home/ubuntu/
+        src: tomcat.service
+        dest: /etc/systemd/system/tomcat.service
+
+    - name: Start and enable tomcat
+      service:
+        daemon_reload: yes
+        name: tomcat
+        state: started
+        enabled: yes
