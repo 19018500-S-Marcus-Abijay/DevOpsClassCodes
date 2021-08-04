@@ -68,7 +68,7 @@ public class CreateNewContactTest {
 		Thread.sleep(2000);
 
 	}
-	
+	//
 	@AfterTest
     public void terminateBrowser(){
 		driver.close();

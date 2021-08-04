@@ -195,9 +195,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.19.1</version>
 				<configuration>
-					<!-- Suite testng xml file to consider for test execution -->
+					<!-- Suite testng xml file to consider for test execution here -->
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
+					<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<parallel>methods</parallel>
 					<threadCount>10</threadCount>
