@@ -24,7 +24,7 @@
         cache_valid_time: 3600 
         state: present
 
-    - name: Start the MySQL service   #Starting MySQL
+    - name: Start the MySQL service    #Starting MySQL
       service: 
         name: mysql 
         state: started
