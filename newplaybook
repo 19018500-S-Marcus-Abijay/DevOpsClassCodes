@@ -1,0 +1,37 @@
+---
+- name: Deploy to remote server
+  hosts: servers
+  become: yes               # If to escalate privilege
+  become_method: sudo
+  remote_user: ubuntu
+
+  tasks:
+
+    - name: Deploying Docker file
+      copy:
+        src: Dockerfile
+        dest: /home/ubuntu/
+        
+    - name: Install Nginx   #Installing Nginx
+      apt:
+        name: nginx
+        state: present
+    
+    - name: Install MySQL   #Installing MySQL
+      apt: 
+        name: mysql-server
+        update_cache: yes 
+        cache_valid_time: 3600 
+        state: present
+
+    - name: Start the MySQL service   #Starting MySQL
+      service: 
+        name: mysql 
+        state: started
+        enabled: true
+
+    - name: Install Default Java      #Installing Java
+      apt:
+        name: default-jdk
+        state: present
+   
